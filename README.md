@@ -117,6 +117,35 @@
 
 ---
 
+## 📚 Swagger文档访问
+
+### 访问方式
+
+在Ruoyi-Vue-Plus-Xiaowei项目中，访问Swagger文档有以下几种方式：
+
+#### 1. 通过前端界面访问（推荐）
+
+在项目的前端界面中，您可以直接通过菜单访问Swagger文档：
+- 登录系统后，在左侧菜单中找到 `系统工具` → `系统接口`，点击即可访问Swagger界面。
+
+#### 2. 直接URL访问
+
+根据配置，您可以通过以下URL直接访问Swagger文档：
+- `http://localhost:8080/swagger-ui/index.html` （后端直接访问）
+
+### 注意事项
+
+- 项目中Swagger功能默认是关闭的，如需开启，请在 `ruoyi-admin/src/main/resources/application.yml` 文件中修改配置：
+  ```yaml
+  swagger:
+    # 是否开启swagger
+    enabled: true  # 将此项从 false 改为 true
+  ```
+
+- 访问时请确保后端服务已启动（默认端口8080）
+
+---
+
 ## 📞 联系方式
 
 <div align="center">
@@ -124,11 +153,11 @@
     <tr>
       <td align="center">
         <strong>个人微信</strong><br>
-        <img src="qrcode.jpg" width="200" alt="个人微信">
+        <img src="./doc/images/personal-wechat.jpg" width="200" alt="个人微信">
       </td>
       <td align="center">
         <strong>微信公众号</strong><br>
-        <img src="qrcode_for_gh_853ffc38891c_258.jpg" width="200" alt="微信公众号">
+        <img src="./doc/images/wechat-mp.jpg" width="200" alt="微信公众号">
       </td>
     </tr>
   </table>

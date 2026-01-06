@@ -47,12 +47,7 @@
             </exclusions>
         </dependency>
 
-        <!-- Tianai验证码 -->
-        <dependency>
-            <groupId>cloud.tianai.captcha</groupId>
-            <artifactId>tianai-captcha-springboot-starter</artifactId>
-            <version>1.5.3</version>
-        </dependency>
+
 
         <!-- 获取系统信息 -->
         <dependency>

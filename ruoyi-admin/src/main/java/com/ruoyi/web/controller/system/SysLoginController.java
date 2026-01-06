@@ -65,22 +65,8 @@ public class SysLoginController
         
         AjaxResult ajax = AjaxResult.success();
         
-        // 对接Tianai验证码增强验证
-        if (StringUtils.isNotEmpty(loginBody.getCaptchaId())) {
-            logger.info("使用Tianai验证码进行验证");
-            boolean tianaiResult = loginService.validateTianaiCaptcha(
-                loginBody.getCaptchaId(),
-                loginBody.getTrack());
-                
-            if (!tianaiResult) {
-                logger.warn("Tianai验证码验证失败，用户名: {}", loginBody.getUsername());
-                return AjaxResult.error("安全验证失败");
-            }
-        } else {
-            // 原有的验证码校验逻辑
-            logger.info("使用传统验证码进行验证");
-            loginService.validateCaptcha(loginBody.getUsername(), loginBody.getCode(), loginBody.getUuid());
-        }
+        // 传统的验证码校验逻辑
+        loginService.validateCaptcha(loginBody.getUsername(), loginBody.getCode(), loginBody.getUuid());
         
         // 生成令牌
         String token = loginService.login(loginBody.getUsername(), loginBody.getPassword(), loginBody.getCode(),

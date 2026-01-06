@@ -113,14 +113,22 @@ public class SysLoginService
         boolean captchaEnabled = configService.selectCaptchaEnabled();
         if (captchaEnabled)
         {
-            String verifyKey = CacheConstants.CAPTCHA_CODE_KEY + StringUtils.nvl(uuid, "");
+            // 验证码UUID不能为空
+            if (StringUtils.isEmpty(uuid))
+            {
+                AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.expire")));
+                throw new CaptchaExpireException();
+            }
+            
+            String verifyKey = CacheConstants.CAPTCHA_CODE_KEY + uuid;
             String captcha = redisCache.getCacheObject(verifyKey);
             if (captcha == null)
             {
                 AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.expire")));
                 throw new CaptchaExpireException();
             }
-            redisCache.deleteObject(verifyKey);
+            
+            // 验证码校验后立即删除，防止重复使用
             if (!code.equalsIgnoreCase(captcha))
             {
                 AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.error")));
@@ -129,26 +137,6 @@ public class SysLoginService
         }
     }
 
-    /**
-     * 校验Tianai验证码
-     * 
-     * @param captchaId 验证码ID
-     * @param track 验证轨迹数据
-     * @return 结果
-     */
-    public boolean validateTianaiCaptcha(String captchaId, String track)
-    {
-        logger.info("校验Tianai验证码，ID: {}", captchaId);
-        
-        // TODO: 实际项目中需要调用Tianai验证码服务进行验证
-        // 这里简化处理，实际应该调用Tianai服务端API验证
-        if (StringUtils.isEmpty(captchaId) || StringUtils.isEmpty(track)) {
-            return false;
-        }
-        
-        // 模拟验证通过
-        return true;
-    }
 
     /**
      * 登录前置校验

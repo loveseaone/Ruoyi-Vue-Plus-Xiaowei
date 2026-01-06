@@ -15,9 +15,9 @@ module.exports = {
   showSettings: true,
 
   /**
-   * 是否显示顶部导航
+   * 菜单导航模式 1、纯左侧 2、混合（左侧+顶部） 3、纯顶部
    */
-  topNav: false,
+  navType: 1,
 
   /**
    * 是否显示 tagsView
@@ -32,7 +32,7 @@ module.exports = {
   /**
    * 是否固定头部
    */
-  fixedHeader: false,
+  fixedHeader: true,
 
   /**
    * 是否显示logo
@@ -52,5 +52,5 @@ module.exports = {
   /**
    * 底部版权文本内容
    */
-  footerContent: 'Copyright © 2018-2025 RuoYi. All Rights Reserved.'
+  footerContent: 'Copyright © 2018-2026 RuoYi. All Rights Reserved.'
 }

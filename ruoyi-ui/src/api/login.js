@@ -58,30 +58,3 @@ export function getCodeImg() {
     timeout: 20000
   })
 }
-
-// 初始化极验验证码
-export function initGeetest() {
-  return request({
-    url: '/geetest/init',
-    headers: {
-      isToken: false
-    },
-    method: 'get'
-  })
-}
-
-// 验证极验验证码
-export function validateGeetest(challenge, validate, seccode) {
-  return request({
-    url: '/geetest/validate',
-    headers: {
-      isToken: false
-    },
-    method: 'get',
-    params: {
-      challenge,
-      validate,
-      seccode
-    }
-  })
-}

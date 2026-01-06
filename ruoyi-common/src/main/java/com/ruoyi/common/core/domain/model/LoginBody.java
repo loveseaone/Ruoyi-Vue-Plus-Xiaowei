@@ -27,15 +27,7 @@ public class LoginBody
      */
     private String uuid;
     
-    /**
-     * Tianai验证码ID
-     */
-    private String captchaId;
-    
-    /**
-     * 验证轨迹数据
-     */
-    private String track;
+
 
     public String getUsername()
     {
@@ -77,21 +69,7 @@ public class LoginBody
         this.uuid = uuid;
     }
 
-    public String getCaptchaId() {
-        return captchaId;
-    }
 
-    public void setCaptchaId(String captchaId) {
-        this.captchaId = captchaId;
-    }
-
-    public String getTrack() {
-        return track;
-    }
-
-    public void setTrack(String track) {
-        this.track = track;
-    }
     
-    // 删除极验验证码相关字段的 getter 和 setter 方法
+
 }
