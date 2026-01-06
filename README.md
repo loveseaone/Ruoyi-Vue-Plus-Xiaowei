@@ -153,11 +153,11 @@
     <tr>
       <td align="center">
         <strong>个人微信</strong><br>
-        <img src="./doc/images/personal-wechat.jpg" width="200" alt="个人微信">
+        <img src="qrcode.jpg" width="200" alt="个人微信">
       </td>
       <td align="center">
         <strong>微信公众号</strong><br>
-        <img src="./doc/images/wechat-mp.jpg" width="200" alt="微信公众号">
+        <img src="qrcode_for_gh_853ffc38891c_258.jpg" width="200" alt="微信公众号">
       </td>
     </tr>
   </table>
