@@ -20,6 +20,8 @@ server:
   servlet:
     # 应用的访问路径
     context-path: /
+  # HTTP头大小配置（Spring Boot 3.0中server.max-http-header-size被弃用，使用server.max-http-request-header-size）
+  max-http-request-header-size: 16KB
   tomcat:
     # tomcat的URI编码
     uri-encoding: UTF-8
@@ -90,6 +92,11 @@ spring:
         max-active: 8
         # #连接池最大阻塞等待时间（使用负值表示没有限制）
         max-wait: -1ms
+  # Web相关配置（Spring Boot 3.0变更）
+  web:
+    mvc:
+      # 尾部斜杠匹配配置，Spring Boot 3.0中默认值设为false
+      trailing-slash-match: true
 
 # token配置
 token:
