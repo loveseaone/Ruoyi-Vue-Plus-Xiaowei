@@ -43,11 +43,7 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
         
-        <!-- Spring Boot 日志启动器 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-logging</artifactId>
-        </dependency>
+
 
         <!-- 核心模块-->
         <dependency>

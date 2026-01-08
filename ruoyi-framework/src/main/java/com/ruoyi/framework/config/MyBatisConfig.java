@@ -39,6 +39,11 @@ public class MyBatisConfig
 
     public static String setTypeAliasesPackage(String typeAliasesPackage)
     {
+        // 添加空值检查
+        if (typeAliasesPackage == null || typeAliasesPackage.trim().isEmpty()) {
+            return typeAliasesPackage;
+        }
+        
         ResourcePatternResolver resolver = (ResourcePatternResolver) new PathMatchingResourcePatternResolver();
         MetadataReaderFactory metadataReaderFactory = new CachingMetadataReaderFactory(resolver);
         List<String> allResult = new ArrayList<String>();
@@ -116,9 +121,9 @@ public class MyBatisConfig
     @Bean
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception
     {
-        String typeAliasesPackage = env.getProperty("mybatis.typeAliasesPackage");
-        String mapperLocations = env.getProperty("mybatis.mapperLocations");
-        String configLocation = env.getProperty("mybatis.configLocation");
+        String typeAliasesPackage = env.getProperty("mybatis.type-aliases-package");  // 修改为标准的短横线命名
+        String mapperLocations = env.getProperty("mybatis.mapper-locations");        // 修改为标准的短横线命名
+        String configLocation = env.getProperty("mybatis.config-location");          // 修改为标准的短横线命名
         typeAliasesPackage = setTypeAliasesPackage(typeAliasesPackage);
         VFS.addImplClass(SpringBootVFS.class);
 

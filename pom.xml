@@ -23,7 +23,7 @@
         <bitwalker.version>1.21</bitwalker.version>
         <swagger.version>3.0.0</swagger.version>
         <kaptcha.version>2.3.3</kaptcha.version>
-        <pagehelper.boot.version>1.4.7</pagehelper.boot.version>
+        <pagehelper.boot.version>2.0.0</pagehelper.boot.version>
         <fastjson.version>2.0.58</fastjson.version>
         <oshi.version>6.8.3</oshi.version>
         <commons.io.version>2.19.0</commons.io.version>
@@ -32,7 +32,7 @@
         <jwt.version>0.9.1</jwt.version>
         <!-- override dependency version -->
         <tomcat.version>10.1.16</tomcat.version>
-        <logback.version>1.2.12</logback.version>
+        <logback.version>1.4.14</logback.version>
         <spring-security.version>6.2.0</spring-security.version>
         <spring-framework.version>6.1.0</spring-framework.version>
     </properties>
@@ -177,6 +177,13 @@
                 <groupId>pro.fessional</groupId>
                 <artifactId>kaptcha</artifactId>
                 <version>${kaptcha.version}</version>
+            </dependency>
+            
+            <!-- MyBatis -->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>3.0.3</version>
             </dependency>
             
             <!-- Mysql驱动 -->

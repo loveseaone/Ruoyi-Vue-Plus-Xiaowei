@@ -119,11 +119,7 @@
             <artifactId>jakarta.servlet-api</artifactId>
         </dependency>
         
-        <!-- Spring Boot 日志启动器 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-logging</artifactId>
-        </dependency>
+
         
         <!-- 修复依赖版本 -->
         <dependency>

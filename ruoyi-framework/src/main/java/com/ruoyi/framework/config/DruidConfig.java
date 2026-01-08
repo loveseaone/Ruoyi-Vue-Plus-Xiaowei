@@ -9,6 +9,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import javax.sql.DataSource;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -83,7 +84,8 @@ public class DruidConfig
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Bean
-    @ConditionalOnProperty(name = "spring.datasource.druid.statViewServlet.enabled", havingValue = "true")
+    @ConditionalOnProperty(name = "spring.datasource.druid.statViewServlet.enabled", havingValue = "true", matchIfMissing = false)
+    @ConditionalOnBean(DruidStatProperties.class)  // 确保只有在DruidStatProperties存在时才创建此Bean
     public FilterRegistrationBean removeDruidFilterRegistrationBean(DruidStatProperties properties)
     {
         // 获取web监控页面的参数
