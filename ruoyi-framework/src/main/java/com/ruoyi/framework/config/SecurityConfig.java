@@ -109,12 +109,23 @@ public class SecurityConfig
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             // 注解标记允许匿名访问的url
             .authorizeHttpRequests((requests) -> {
-                permitAllUrl.getUrls().forEach(url -> requests.antMatchers(url).permitAll());
+                // 动态配置允许匿名访问的URL
+                for (String url : permitAllUrl.getUrls()) {
+                    if (org.springframework.util.StringUtils.hasText(url)) {
+                        requests.requestMatchers(org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher(url)).permitAll();
+                    }
+                }
                 // 对于登录login 注册register 验证码captchaImage 允许匿名访问
-                requests.antMatchers("/login", "/register", "/captchaImage").permitAll()
+                requests.requestMatchers(org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher("/login"),
+                        org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher("/register"),
+                        org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher("/captchaImage")).permitAll()
                     // 静态资源，可匿名访问
-                    .antMatchers(HttpMethod.GET, "/", "/*.html", "/**/*.html", "/**/*.css", "/**/*.js", "/profile/**").permitAll()
-                    .antMatchers("/swagger-ui.html", "/swagger-resources/**", "/webjars/**", "/*/api-docs", "/druid/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/", "/*.html", "/**/*.html", "/**/*.css", "/**/*.js", "/profile/**").permitAll()
+                    .requestMatchers(org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher("/swagger-ui.html"),
+                            org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher("/swagger-resources/**"),
+                            org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher("/webjars/**"),
+                            org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher("/*/api-docs"),
+                            org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher("/druid/**")).permitAll()
                     // 除上面外的所有请求全部需要鉴权认证
                     .anyRequest().authenticated();
             })
