@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.CorsFilter;
 import com.ruoyi.framework.config.properties.PermitAllUrlProperties;
 import com.ruoyi.framework.security.filter.JwtAuthenticationTokenFilter;
@@ -112,20 +113,20 @@ public class SecurityConfig
                 // 动态配置允许匿名访问的URL
                 for (String url : permitAllUrl.getUrls()) {
                     if (org.springframework.util.StringUtils.hasText(url)) {
-                        requests.requestMatchers(org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher(url)).permitAll();
+                        requests.requestMatchers(AntPathRequestMatcher.antMatcher(url)).permitAll();
                     }
                 }
                 // 对于登录login 注册register 验证码captchaImage 允许匿名访问
-                requests.requestMatchers(org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher("/login"),
-                        org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher("/register"),
-                        org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher("/captchaImage")).permitAll()
+                requests.requestMatchers(AntPathRequestMatcher.antMatcher("/login"),
+                        AntPathRequestMatcher.antMatcher("/register"),
+                        AntPathRequestMatcher.antMatcher("/captchaImage")).permitAll()
                     // 静态资源，可匿名访问
                     .requestMatchers(HttpMethod.GET, "/", "/*.html", "/**/*.html", "/**/*.css", "/**/*.js", "/profile/**").permitAll()
-                    .requestMatchers(org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher("/swagger-ui.html"),
-                            org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher("/swagger-resources/**"),
-                            org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher("/webjars/**"),
-                            org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher("/*/api-docs"),
-                            org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher("/druid/**")).permitAll()
+                    .requestMatchers(AntPathRequestMatcher.antMatcher("/swagger-ui.html"),
+                            AntPathRequestMatcher.antMatcher("/swagger-resources/**"),
+                            AntPathRequestMatcher.antMatcher("/webjars/**"),
+                            AntPathRequestMatcher.antMatcher("/*/api-docs"),
+                            AntPathRequestMatcher.antMatcher("/druid/**")).permitAll()
                     // 除上面外的所有请求全部需要鉴权认证
                     .anyRequest().authenticated();
             })

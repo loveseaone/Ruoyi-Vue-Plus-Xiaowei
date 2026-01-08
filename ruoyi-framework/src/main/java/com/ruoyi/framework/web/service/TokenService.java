@@ -1,5 +1,6 @@
 package com.ruoyi.framework.web.service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -184,7 +185,12 @@ public class TokenService
      */
     private String createToken(Map<String, Object> claims)
     {
-        SecretKey key = Keys.hmacShaKeyFor(secret.getBytes());
+        SecretKey key;
+        try {
+            key = Keys.hmacShaKeyFor(secret.getBytes("UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
         String token = Jwts.builder()
                 .setClaims(claims)
                 .signWith(key).compact();
@@ -199,7 +205,12 @@ public class TokenService
      */
     private Claims parseToken(String token)
     {
-        SecretKey key = Keys.hmacShaKeyFor(secret.getBytes());
+        SecretKey key;
+        try {
+            key = Keys.hmacShaKeyFor(secret.getBytes("UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
         return Jwts.parser()
                 .verifyWith(key)
                 .build()
