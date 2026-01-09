@@ -153,7 +153,22 @@ Ruoyi-Vue-Plus-Xiaowei 是一个基于 Spring Boot 的企业级管理系统，�
   - 从 ruoyi-common 和 ruoyi-admin 模块中移除显式的 `spring-boot-starter-logging` 依赖
 - **修改文件**: [pom.xml](file:///D:/xiao/opensource/Ruoyi-Vue-Plus-Xiaowei/pom.xml), [ruoyi-common/pom.xml](file:///D:/xiao/opensource/Ruoyi-Vue-Plus-Xiaowei/ruoyi-common/pom.xml), [ruoyi-admin/pom.xml](file:///D:/xiao/opensource/Ruoyi-Vue-Plus-Xiaowei/ruoyi-admin/pom.xml)
 
-### 11. Redis 配置兼容性
+### 11. JWT (JJWT) 升级修复
+
+#### JJWT 从 0.9.1 升级至 2.x 版本
+- **问题**: 在Java 11+环境中运行项目时出现 `java.lang.ClassNotFoundException: javax.xml.bind.DatatypeConverter`
+- **原因**: Java 11+移除了Java EE和CORBA模块，其中包括JAXB API；项目使用的JJWT 0.9.1版本依赖`javax.xml.bind.DatatypeConverter`进行Base64编码/解码操作
+- **解决方案**:
+  - 更新JJWT依赖至2.x版本（0.12.6）
+  - 将单一依赖拆分为模块化组件（jjwt-api, jjwt-impl, jjwt-jackson）
+  - 更新TokenService.java中的API调用方式
+- **修改文件**: [pom.xml](file:///D:/xiao/opensource/Ruoyi-Vue-Plus-Xiaowei/pom.xml), [ruoyi-common/pom.xml](file:///D:/xiao/opensource/Ruoyi-Vue-Plus-Xiaowei/ruoyi-common/pom.xml), [ruoyi-framework/src/main/java/com/ruoyi/framework/web/service/TokenService.java](file:///D:/xiao/opensource/Ruoyi-Vue-Plus-Xiaowei/ruoyi-framework/src/main/java/com/ruoyi/framework/web/service/TokenService.java)
+- **API变更**:
+  - 旧版：`.setSigningKey(secret).parseClaimsJws(token).getBody()`
+  - 新版：`.verifyWith(key).build().parseSignedClaims(token).getPayload()`
+  - 使用`Keys.hmacShaKeyFor()`方法创建密钥，不再使用SignatureAlgorithm枚举
+
+### 12. Redis 配置兼容性
 
 #### Redis 配置检查
 - **检查结果**: Redis 配置已经与 Spring Boot 3.0 兼容
@@ -161,7 +176,7 @@ Ruoyi-Vue-Plus-Xiaowei 是一个基于 Spring Boot 的企业级管理系统，�
 - **代码文件**: [ruoyi-framework/src/main/java/com/ruoyi/framework/config/RedisConfig.java](file:///D:/xiao/opensource/Ruoyi-Vue-Plus-Xiaowei/ruoyi-framework/src/main/java/com/ruoyi/framework/config/RedisConfig.java), [ruoyi-common/src/main/java/com/ruoyi/common/core/redis/RedisCache.java](file:///D:/xiao/opensource/Ruoyi-Vue-Plus-Xiaowei/ruoyi-common/src/main/java/com/ruoyi/common/core/redis/RedisCache.java)
 - **说明**: 无需修改，配置和代码已与新版本兼容
 
-### 12. Druid 配置兼容性
+### 13. Druid 配置兼容性
 
 #### Druid 配置检查与修正
 - **检查结果**: Druid 配置基本兼容，但需要添加条件注解
@@ -223,5 +238,10 @@ Ruoyi-Vue-Plus-Xiaowei 是一个基于 Spring Boot 的企业级管理系统，�
 3. MyBatis配置空指针异常
 4. Web相关配置属性变更
 5. 安全配置适配
+6. JWT(JJWT)升级修复
 
- 
+下一步需要进行全面的功能测试和性能验证，确保所有业务功能正常运行。
+
+## 当前问题说明
+
+在迁移过程中遇到依赖解析问题，这可能是由于本地Maven仓库配置或网络问题导致的。在实际部署环境中，可能需要确保Maven仓库配置正确，能够访问Spring Boot 3.x的相关依赖。
