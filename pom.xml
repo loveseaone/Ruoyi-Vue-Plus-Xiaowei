@@ -21,7 +21,7 @@
         <spring-boot.version>3.2.0</spring-boot.version>
         <druid.version>1.2.23</druid.version>
         <bitwalker.version>1.21</bitwalker.version>
-        <swagger.version>3.0.0</swagger.version>
+        <springdoc.openapi.version>2.2.0</springdoc.openapi.version>
         <kaptcha.version>2.3.3</kaptcha.version>
         <pagehelper.boot.version>2.0.0</pagehelper.boot.version>
         <fastjson.version>2.0.58</fastjson.version>
@@ -130,17 +130,11 @@
                 <version>${oshi.version}</version>
             </dependency>
 
-            <!-- Swagger3依赖 -->
+            <!-- SpringDoc OpenAPI3依赖 -->
             <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-boot-starter</artifactId>
-                <version>${swagger.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>io.swagger</groupId>
-                        <artifactId>swagger-models</artifactId>
-                    </exclusion>
-                </exclusions>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>2.2.0</version>
             </dependency>
 
 
