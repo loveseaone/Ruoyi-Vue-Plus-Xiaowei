@@ -125,12 +125,21 @@ pagehelper:
   supportMethodsArguments: true
   params: count=countSql
 
-# Swagger配置
-swagger:
-  # 是否开启swagger
-  enabled: false
-  # 请求前缀
-  pathMapping: /dev-api
+# OpenAPI配置
+springdoc:
+  # 是否开启openapi
+  swagger-ui:
+    enabled: true  # 启用Swagger UI
+  api-docs:
+    enabled: true  # 启用API文档
+  show-actuator: true
+
+# 旧版Swagger配置（现已被SpringDoc替代）
+# swagger:
+#   # 是否开启swagger
+#   enabled: false
+#   # 请求前缀
+#   pathMapping: /dev-api
 
 # 防盗链配置
 referer:
